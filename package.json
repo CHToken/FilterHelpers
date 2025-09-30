@@ -1,0 +1,49 @@
+{
+  "name": "filterhelpers",
+  "version": "1.0.0",
+  "description": "Solana token filter helpers for checking token 2022 extensions, mint authority, and freeze authority",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["solana", "spl-token", "token-2022", "filter", "mint", "freeze"],
+  "author": "TechyTro DexTycoon",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CHToken/filterhelpers.git"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "typescript": "^5.9.2",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@solana/spl-token": "^0.4.14",
+    "@solana/web3.js": "^1.98.4",
+    "dotenv": "^17.2.3",
+    "p-limit": "^7.1.1",
+    "winston": "^3.18.1"
+  },
+  "authorDetails": {
+    "DiscordHandle": {
+      "name": "TechyTro",
+      "url": "https://discord.com/users/techytro"
+    },
+    "DiscordCommunity": {
+      "name": "TechyTro Community",
+      "url": "https://discord.gg/zxhKAhn2cT"
+    },
+    "Telegram": {
+      "name": "LordOfDevSalt",
+      "url": "https://t.me/lordofdevsalt"
+    },
+    "Github": {
+      "name": "CHToken",
+      "url": "https://github.com/CHToken"
+    }
+  }
+}

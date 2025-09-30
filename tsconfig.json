@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "es2022",  
+    "module": "commonjs",  
+    "outDir": "./dist", 
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "esModuleInterop": true, 
+    "forceConsistentCasingInFileNames": true, 
+    "skipLibCheck": true, 
+    "removeComments": true,
+    "strict": true, 
+    "noUnusedLocals": true, 
+    "noImplicitAny": true,
+    
+    /* Emit Options */
+    "sourceMap": false,  // Consider turning on source maps if debugging the compiled JS
+    "declaration": true, // Generates .d.ts files
+    "declarationMap": true,  // Create a map for declaration files
+
+    /* Path Resolutions */
+    "baseUrl": ".",  
+    "paths": {
+      "*": ["node_modules/*"]
+    },
+  },
+  "include": [
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
