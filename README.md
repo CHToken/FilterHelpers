@@ -38,8 +38,8 @@ This helper allows developers and traders to **quickly and reliably validate tok
 ## Installation
 
 ```bash
-git clone https://github.com/CHToken/filterhelpers.git
-cd filterhelpers
+git clone https://github.com/CHToken/FilterHelpers.git
+cd FilterHelpers
 npm install
 ````
 
