@@ -50,30 +50,86 @@ npm install
 ### Single Mint Check
 
 ```ts
-import { Connection, PublicKey } from "@solana/web3.js";
-import { checkMint } from "./helpers/checkMintHelper";
+import { PublicKey } from "@solana/web3.js";
+import { connection } from "./utils/connection";
+import { PoolFilterManager } from "./filters/pool-filter";
+import { CHECK_FREEZE_AUTHORITY, CHECK_IF_MINT_IS_RENOUNCED, CHECK_MINT_FEE, ENABLE_FAST_MODE } from "./utils";
+import { ExtensionType } from "@solana/spl-token";
 
-const connection = new Connection("https://api.mainnet-beta.solana.com");
-const mint = new PublicKey("GFQrFKLviLPwfsGTasmQWHq5a9Y4bepUJyxyvbenivsP");
+// Array of mints to check
+const mints = [
+  new PublicKey("UXen71YJpLmm1qect5E8Bww3z2T798n1Wy4Ybs4PVFY"),
+];
+
+// Define filter options
+const filterOptions = {
+  checkFees: CHECK_MINT_FEE,
+  checkMintRenounced: CHECK_IF_MINT_IS_RENOUNCED,
+  checkFreezable: CHECK_FREEZE_AUTHORITY,
+  forbidden: [
+    ExtensionType.MintCloseAuthority,
+    ExtensionType.PausableConfig,
+    ExtensionType.ConfidentialTransferMint,
+    ExtensionType.NonTransferable,
+    ExtensionType.TransferHook,
+    ExtensionType.PermanentDelegate,
+  ],
+};
 
 (async () => {
-  const result = await checkMint(connection, mint, "token2022");
-  console.log(result);
+  // Initialize the manager with options and concurrency
+  const manager = new PoolFilterManager(connection, filterOptions, 20, ENABLE_FAST_MODE);
+
+  // Execute batch check
+  const summary = await manager.executeMany(mints);
+
+  // summary.results will include messages indicating whether forbidden extensions are found or none are present
+  console.log(summary);
 })();
 ```
 
 ### Batch Mint Check
 
 ```ts
-import { checkMintsBatch } from "./helpers/checkMintHelper";
+import { PublicKey } from "@solana/web3.js";
+import { connection } from "./utils/connection";
+import { PoolFilterManager } from "./filters/pool-filter";
+import { CHECK_FREEZE_AUTHORITY, CHECK_IF_MINT_IS_RENOUNCED, CHECK_MINT_FEE, ENABLE_FAST_MODE } from "./utils";
+import { ExtensionType } from "@solana/spl-token";
 
+// Array of mints to check
 const mints = [
-  new PublicKey("MintAddress1"),
-  new PublicKey("MintAddress2")
+  new PublicKey("CVXB7XCjKyKCftyz6QqtUzzSJKPBF9ECoaEcaw5XLyyM"),
+  new PublicKey("2X1N6hJSuHH9yJY7Hok5evMcsUaCXedE127k3jbMEzny"),
+  new PublicKey("UXen71YJpLmm1qect5E8Bww3z2T798n1Wy4Ybs4PVFY"),
+  new PublicKey("FdohLbj7wck1Qo3WwMNfMqjZWDTyzZYqYxL3NGTmaqGY"),
 ];
 
-const results = await checkMintsBatch(connection, mints, "token2022");
-console.log(results);
+// Define filter options
+const filterOptions = {
+  checkFees: CHECK_MINT_FEE,
+  checkMintRenounced: CHECK_IF_MINT_IS_RENOUNCED,
+  checkFreezable: CHECK_FREEZE_AUTHORITY,
+  forbidden: [
+    ExtensionType.MintCloseAuthority,
+    ExtensionType.PausableConfig,
+    ExtensionType.ConfidentialTransferMint,
+    ExtensionType.NonTransferable,
+    ExtensionType.TransferHook,
+    ExtensionType.PermanentDelegate,
+  ],
+};
+
+(async () => {
+  // Initialize the manager with options and concurrency
+  const manager = new PoolFilterManager(connection, filterOptions, 20, ENABLE_FAST_MODE);
+
+  // Execute batch check
+  const summary = await manager.executeMany(mints);
+
+  // summary.results will include messages indicating whether forbidden extensions are found or none are present
+  console.log(summary);
+})();
 ```
 
 ---
