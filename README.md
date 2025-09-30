@@ -1,4 +1,4 @@
-# FilterHelpers
+# DexTycoon Solana Token Filter Helpers
 
 **DexTycoon Solana Token Filter Helpers** – A lightweight, efficient utility to check SPL Token 2022 extensions, mint authority, and freeze authority in Solana. Designed to protect users from scam and malicious tokens.
 
